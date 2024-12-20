@@ -24,7 +24,8 @@ class AdminAccountController extends Controller
      */
     public function create()
     {
-        return view('admin.account.create');
+        $user = Auth::user();
+        return view('admin.account.create', ['user' => $user]);
     }
 
     /**
@@ -32,7 +33,19 @@ class AdminAccountController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->merge([
+            'status' => $request->input('status', 0), // Gán giá trị mặc định là 0 nếu không có
+        ]);
+        $request->validate([
+            'username'=>'required|min:6',
+            'password'=>'required|min:6',
+            'confirm_password'=>'required|same:password',
+            'status'=> 'required|in:0,1',
+        ]);
+        $data = $request->all();
+        $data['password'] = bcrypt($data['password']);
+        User::create($data);
+        return redirect('/admin/admin-user')->with('message', 'Tạo tài khoản thành công!');
     }
 
     /**
@@ -46,24 +59,35 @@ class AdminAccountController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $user)
+    public function edit($user)
     {
-        //
+        $auth_data = Auth::user();
+        $users = User::where('id', $user)->first();
+        return view('admin.account.edit', ['user'=>$auth_data, 'users'=>$users]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, $user)
     {
-        //
+        $request->validate([
+            'username'=>'required|min:6',
+            'password'=>'required|min:6',
+            'status'=> 'required|in:0,1',
+        ]);
+        $data = $request->except('_token');
+        $data['password'] = bcrypt($data['password']);
+        User::where('id', $user)->update($data);
+        return redirect('/admin/admin-user')->with(['message'=>'Chỉnh sửa thành công!']);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function destroy($user)
     {
-        //
+        User::where('id', $user)->delete();
+        return redirect('/admin/admin-user')->with(['message'=>'Xóa thành công!']);
     }
 }
