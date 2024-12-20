@@ -3,14 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
+    // Admin Account
     public function index(){
-        return view('admin.index');
+        $user = Auth::user();
+        $user_count = User::count();
+        $category_count = Category::count();
+        $product_count = Product::count();
+        return view('admin.index', ['user'=>$user, 'user_count' => $user_count, 'category_count' => $category_count, 'product_count' => $product_count]);
     }
     public function login(){
         return view('admin.login');

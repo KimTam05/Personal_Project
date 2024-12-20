@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\AdminAccountController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,5 +25,8 @@ Route::get('/admin/login', [AdminController::class, 'login'])->name('admin.login
 Route::post('admin/login', [AdminController::class, 'loginSubmit'])->name('admin.loginSubmit');
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
     Route::get('/', [AdminController::class, 'index'])->name('admin.index');
-    Route::get('/logout', [AdminController::class, 'logout']);
+    Route::get('/logout', [AdminController::class, 'logout'])->name('admin.logout');
+    Route::resource('/admin-user', AdminAccountController::class);
+    Route::resource('/category', CategoryController::class);
+    Route::resource('/product', ProductController::class);
 });
