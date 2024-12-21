@@ -45,7 +45,7 @@ class ProductController extends Controller
         ]);
         $file = $request->file('image');
         $filename = time() . '_' . $file->getClientOriginalName(); // Đặt tên file
-        $path = $file->storeAs('images', $filename, 'public');
+        $path = $file->storeAs('images', $filename, 'public'); // Lưu vào thư mục 'public/storage/images'
         $data = $request->all();
         $data['image'] = $path;
         Product::create($data);
