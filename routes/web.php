@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AdminAccountController;
+use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,4 +30,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
     Route::post('/category/create', [CategoryController::class, 'store']);
     Route::get('category/{category}/delete', [CategoryController::class, 'destroy']);
     Route::resource('/product', ProductController::class);
+    Route::post('/product/create', [ProductController::class, 'store']);
+    Route::get('/product/{product}/delete', [ProductController::class, 'destroy']);
 });

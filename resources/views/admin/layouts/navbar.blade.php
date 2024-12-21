@@ -45,10 +45,10 @@
                         <p>Add Category</p>
                     </a> </li>
                 <li class="nav-header">PRODUCT</li>
-                <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-circle-fill"></i>
+                <li class="nav-item"> <a href="/admin/product" class="nav-link"> <i class="nav-icon bi bi-circle-fill"></i>
                         <p>List Product</p>
                     </a> </li>
-                <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-circle-fill"></i>
+                <li class="nav-item"> <a href="/admin/product/create" class="nav-link"> <i class="nav-icon bi bi-circle-fill"></i>
                         <p>
                             Add Product
                         </p>

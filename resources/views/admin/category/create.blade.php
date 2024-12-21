@@ -23,9 +23,15 @@
                     @enderror
                 </div>
                 <div class="form-group my-2">
-                    <label for="">Trạng thái</label> <br>
-                    <input type="radio" name="status" value='0'> Đang mở
-                    <input type="radio" name="status" value='1'> Đã đóng
+                    <label for="">Trạng thái</label>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" name="status" value='0'>
+                        <label for="" class="form-check-label">Đang mở</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" name="status" value='1'>
+                        <label for="" class="form-check-label">Đã đóng</label>
+                    </div>
                     @error('status')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
